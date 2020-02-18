@@ -1,0 +1,98 @@
+{
+	"beans": [
+		{
+			"name": "registerFileDelegate",
+			"description": "Modul 'registerFile': Registrieren von Dateien für Housekeeping",
+			"methods": [
+				{
+					"name": "registerFile",
+					"params": [
+						{
+							"defaultValue": "fileName",
+							"displayName": "File name",
+							"dataType": "String",
+							"required": true,
+							"exampleValue": "my-file.mxf",
+							"description": "Der Name der zu registrierenden Datei"
+						},
+						{
+							"defaultValue": "time",
+							"displayName": "Time",
+							"dataType": "Integer",
+							"required": true,
+							"exampleValue": "8",
+							"description": "Die Vorhaltezeit der Datei in Stunden"
+						}
+					],
+					"description": "Registriert eine Datei zum Löschen"
+				},
+				{
+					"name": "registerFiles",
+					"params": [
+						{
+							"defaultValue": "fileName",
+							"displayName": "File name",
+							"dataType": "String",
+							"required": true,
+							"exampleValue": "my-file",
+							"description": "Der Prefix der zu registrierenden Dateien"
+						},
+						{
+							"defaultValue": "time",
+							"displayName": "Time",
+							"dataType": "Integer",
+							"required": true,
+							"exampleValue": "8",
+							"description": "Die Vorhaltezeit der Dateien in Stunden"
+						}
+					],
+					"description": "Registriert mehrere Dateien zum Löschen, z.B. MXF-Datei mit Sidecar XML"
+					
+				},
+				{
+					"name": "registerSourceFileById",
+					"description": "Registriert source Datei anhand der ID",
+					"params": [
+						{
+							"defaultValue": "'RESOURCE'",
+							"displayName": "Resource",
+							"dataType": "String",
+							"required": true,
+							"exampleValue": "'RESOURCE'",
+							"description": "'RESOURCE' Beschreibung"
+						},
+						{
+							"defaultValue": "exportOrderResult.vioExportResourceId",
+							"displayName": "exportOrderResult.vioExportResourceId",
+							"dataType": "String",
+							"required": true,
+							"exampleValue": "exportOrderResult.vioExportResourceId",
+							"description": "exportOrderResult.vioExportResourceId Beschreibung"
+						},
+						{
+							"defaultValue": "fileName",
+							"displayName": "File name",
+							"dataType": "String",
+							"required": true,
+							"exampleValue": "my-file.mxf",
+							"description": "Der Name der zu registrierenden Datei"
+						},
+						{
+							"defaultValue": "execution.processInstanceId",
+							"displayName": "execution.processInstanceId",
+							"dataType": "String",
+							"required": true,
+							"exampleValue": "execution.processInstanceId",
+							"description": "execution.processInstanceId Beschreibung"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "transcodingDelegate",
+			"description": "",
+			"methods": []
+		}
+	]
+}

@@ -1,0 +1,50 @@
+{
+  "name": "Activiti",
+  "prefix": "activiti",
+  "uri": "http://activiti.org/bpmn",
+  "xml": {
+    "tagAlias": "lowerCase"
+  },
+  "associations": [],
+  "types": [
+    {
+      "name": "ExecutionListener",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "event",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "class",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "ActivitiTask",
+      "extends": [
+        "bpmn:ServiceTask"
+      ],
+      "properties": [
+        {
+          "name": "expression",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "async",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "resultVariableName",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    }
+  ]
+}
