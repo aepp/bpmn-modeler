@@ -1,9 +1,15 @@
+import beansConfig from '../../../resources/common-tasks-meta-model';
+
 export default class CustomPalette {
-  constructor(bpmnFactory, create, elementFactory, palette, translate) {
+  constructor(bpmnFactory, create, elementFactory, palette, translate, elementRegistry, beanName) {
+    console.log('beanName', beanName);
     this.bpmnFactory = bpmnFactory;
     this.create = create;
     this.elementFactory = elementFactory;
     this.translate = translate;
+    this.elementRegistry = elementRegistry;
+    this.beanName = beanName;
+    this.beanConfig = beansConfig.beans.filter(b => b.name === beanName)[0];
 
     palette.registerProvider(this);
   }
@@ -13,36 +19,48 @@ export default class CustomPalette {
       bpmnFactory,
       create,
       elementFactory,
-      translate
+      translate,
+      elementRegistry,
+      beanName,
+      beanConfig
     } = this;
 
     function createTask(props) {
       return function(event) {
-        let businessObject = bpmnFactory.create('bpmn:ServiceTask');
-  
+        let type = 'bpmn:ServiceTask';
+        let businessObject = bpmnFactory.create(type);
+
+        const elementsOfSameType = elementRegistry.filter(el => el.type === type && el.id.includes(props.id));
+        if(elementsOfSameType.length > 0) props.id = `${props.id}-${elementsOfSameType.length}`;
+
         businessObject = Object.assign(businessObject, props);
-  
+
         const shape = elementFactory.create(
           'shape', 
           {
-            type: 'bpmn:ServiceTask',
-            businessObject: businessObject
+            type,
+            businessObject
           }
         );
         create.start(event, shape);
       }
     }
+
+    let defaultExpression = beanConfig.defaults.filter(d => d.name === 'expression')[0];
+    let defaultId = beanConfig.defaults.filter(d => d.name === 'id')[0];
+    let defaultAsync = beanConfig.defaults.filter(d => d.name === 'async')[0];
+
     const taskProps = {
-      expression: '${registerFileDelegate.registerSourceFileById(\'RESOURCE\', exportOrderResult.vioExportResourceId, fileName, execution.processInstanceId)}', 
-      id: 'register_file', 
-      name: 'File registrieren', 
-      async: 'true'
+      name: beanConfig.label,
+      expression: defaultExpression ? defaultExpression.value : '',
+      id: defaultId ? defaultId.value : '',
+      async: defaultAsync ? defaultAsync.value : ''
     };
     return {
-      'create.register_file-task': {
+      [`create.${beanName}`]: {
         group: 'activity',
-        className: 'fas fa-cogs red',
-        title: translate('Create register_file Task'),
+        className: `hr-icon icon-${beanConfig.iconClassName}`,
+        title: translate(beanConfig.label),
         action: {
           dragstart: createTask(taskProps),
           click: createTask(taskProps)
@@ -75,5 +93,8 @@ CustomPalette.$inject = [
   'create',
   'elementFactory',
   'palette',
-  'translate'
+  'translate',
+  'elementRegistry',
+  'beanName'
 ];
+CustomPalette.$scope = ['request']

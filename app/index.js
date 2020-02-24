@@ -7,19 +7,26 @@ import customPropertiesProviderModule from './provider';
 import activitiModdleDescriptor from './descriptors/activiti';
 import customElements from './customElements';
 import diagramXML from '../resources/newDiagram.bpmn';
+import beansConfig from '../resources/common-tasks-meta-model';
 
 var container = $('#js-drop-zone');
+
+const additionalModules = [
+  propertiesPanelModule,
+  customPropertiesProviderModule
+];
+
+for(let i = 0; i < beansConfig.beans.length; i++){
+  // console.log(beans[i]);
+  additionalModules.push(customElements(beansConfig.beans[i].name));
+}
 
 export const bpmnModeler = new BpmnModeler({
   container: '#js-canvas',
   propertiesPanel: {
     parent: '#js-properties-panel'
   },
-  additionalModules: [
-    propertiesPanelModule,
-    customPropertiesProviderModule,
-    customElements
-  ],
+  additionalModules,
   moddleExtensions: {
     activiti: activitiModdleDescriptor
   }

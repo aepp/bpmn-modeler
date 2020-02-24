@@ -13,6 +13,8 @@ import nameProps from 'bpmn-js-properties-panel/lib/provider/bpmn/parts/NameProp
 
 // Require your custom property entries.
 import activitiTab from './activiti/Tab';
+import listenerTab from './listener/Tab';
+import conditionalProps from './condition/ConditionalProps';
 
 
 // The general tab contains all bpmn relevant properties.
@@ -35,6 +37,7 @@ function createGeneralTabGroups(element, bpmnFactory, canvas, elementRegistry, t
   };
   linkProps(detailsGroup, element, translate);
   eventProps(detailsGroup, element, bpmnFactory, elementRegistry, translate);
+  conditionalProps(detailsGroup, element, bpmnFactory, translate);
 
   var documentationGroup = {
     id: 'documentation',
@@ -68,7 +71,8 @@ export default function propertiesProvider(
     // Show all tabs
     return [
       generalTab,
-      activitiTab(element)
+      activitiTab(element),
+      listenerTab(element, bpmnFactory, translate)
     ];
   };
 }

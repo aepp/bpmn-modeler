@@ -26,6 +26,7 @@ export const initAvailableExpressionsPanel = ({
     currentExpressionPanelEl, 
     textFieldExpressionMDC, 
     dialogEl, 
+    currentBeanName,
     updateArgMDCs, 
     updateMethodName,
     updateBeanName
@@ -34,27 +35,24 @@ export const initAvailableExpressionsPanel = ({
     const availableExpressionsPanelEl = dialogEl.querySelector('#available-expressions-panel');
     const listEl = getExpresseinonsListEl();
     
-    const beans = beansConfig.beans;
+    const beanConfig = beansConfig.beans.filter(b => b.name === currentBeanName)[0];
     const listItemEls = [];
-    for(let i = 0; i < beans.length; i++) {
-        let beanName = beans[i].name;
-        beans[i].methods.forEach((method, j) => {
-            let listItemEl = getAvailableExpressionEl({
-                beanName, 
-                methodName: method.name, 
-                args: method.params, 
-                description: method.description,
-                tabindex: i === 0 && j === 0 ? i : null
-            });
-            listItemEls.push(listItemEl);
-            listEl.appendChild(listItemEl);
+    let beanName = beanConfig.name;
+    beanConfig.methods.forEach((method, j) => {
+        let listItemEl = getAvailableExpressionEl({
+            beanName, 
+            methodName: method.name, 
+            args: method.params, 
+            description: method.description,
+            tabindex: j === 0 ? j : null
         });
-    }
+        listItemEls.push(listItemEl);
+        listEl.appendChild(listItemEl);
+    });
     
     const listMDC = new MDCList(listEl);
     listMDC.listen('MDCList:action', ({detail: {index}}) => {
         let {beanName, methodName} = listItemEls[index].dataset;
-        let beanConfig = beans.filter(b => b.name === beanName)[0];
         if(beanConfig && beanConfig.hasOwnProperty('methods')) {
             let {argMDCs} = appendParameterFieldsFromArgs({
                 args: (beanConfig.methods.filter(m => m.name === methodName)[0] || {}).params,

@@ -8,7 +8,7 @@
   "associations": [],
   "types": [
     {
-      "name": "ExecutionListener",
+      "name": "executionListener",
       "superClass": [ "Element" ],
       "properties": [
         {
@@ -19,6 +19,40 @@
         {
           "name": "class",
           "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "delegateExpression",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "expression",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "fields",
+          "isMany": true,
+          "type": "field"
+        }
+      ]
+    },
+    {
+      "name": "field",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "name",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "string",
+          "type": "String"
+        },
+        {
+          "name": "expression",
           "type": "String"
         }
       ]

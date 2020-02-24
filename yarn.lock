@@ -1623,7 +1623,7 @@ camelcase@^2.0.0:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-2.1.1.tgz#7c1d16d679a1bbe59ca02cacecfb011e201f5a1f"
   integrity sha1-fB0W1nmhu+WcoCys7PsBHiAfWh8=
 
-camunda-bpmn-moddle@^4.0.1:
+camunda-bpmn-moddle@^4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/camunda-bpmn-moddle/-/camunda-bpmn-moddle-4.4.0.tgz#2daeab766e198c56f1b0bdccf71b2bd707dc5d8d"
   integrity sha512-jhtbPk7AXJNig/1040OWk75xn6dXs+NRQXx0HTf4er+NsQsNIIyuB3Nfm+rmyQSLhIc58Pi9QD4/aAfP97OvEg==

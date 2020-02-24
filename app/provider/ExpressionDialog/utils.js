@@ -78,7 +78,7 @@ export const getArgsObjectsByArgs = ({beanName, methodName, argsRaw}) => {
     for (let i = 0; i < argsRaw.length; i++) {
         let argObject = methodObject.params[i];
         if(argObject) {
-            argsObjects.push(argObject);
+            argsObjects.push(Object.assign(argObject, {defaultValue: argsRaw[i]}));
         } else {
             argsObjects.push({
                 defaultValue: argsRaw[i],

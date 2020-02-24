@@ -3,6 +3,22 @@
 		{
 			"name": "registerFileDelegate",
 			"description": "Modul 'registerFile': Registrieren von Dateien für Housekeeping",
+			"label": "File registrieren",
+			"iconClassName": "register-file",
+			"defaults": [
+				{
+					"name": "id",
+					"value": "register-file"
+				},
+				{
+					"name": "expression",
+					"value": "${registerFileDelegate.registerSourceFileById('RESOURCE', exportOrderResult.vioExportResourceId, fileName, execution.processInstanceId)}"
+				},
+				{
+					"name": "async",
+					"value": "true"
+				}
+			],
 			"methods": [
 				{
 					"name": "registerFile",
@@ -59,15 +75,15 @@
 							"dataType": "String",
 							"required": true,
 							"exampleValue": "'RESOURCE'",
-							"description": "'RESOURCE' Beschreibung"
+							"description": "Resource Beschreibung"
 						},
 						{
 							"defaultValue": "exportOrderResult.vioExportResourceId",
-							"displayName": "exportOrderResult.vioExportResourceId",
+							"displayName": "Resource ID",
 							"dataType": "String",
 							"required": true,
 							"exampleValue": "exportOrderResult.vioExportResourceId",
-							"description": "exportOrderResult.vioExportResourceId Beschreibung"
+							"description": "Resource ID Beschreibung"
 						},
 						{
 							"defaultValue": "fileName",
@@ -79,20 +95,84 @@
 						},
 						{
 							"defaultValue": "execution.processInstanceId",
-							"displayName": "execution.processInstanceId",
+							"displayName": "Process instance ID",
 							"dataType": "String",
 							"required": true,
 							"exampleValue": "execution.processInstanceId",
-							"description": "execution.processInstanceId Beschreibung"
+							"description": "Process instance ID Beschreibung"
 						}
 					]
 				}
 			]
 		},
 		{
-			"name": "transcodingDelegate",
+			"name": "asyncFileTransfer",
 			"description": "",
-			"methods": []
+			"label": "File-Lokalisierung beauftragen",
+			"iconClassName": "async-file-transfer",
+			"defaults": [
+				{
+					"name": "id",
+					"value": "request-localize-file"
+				},
+				{
+					"name": "expression",
+					"value": "${asyncFileTransfer.transferFileById('FTP', resourceId,'RESOURCE','AVID_IN', fileName, execution.id)}"
+				},
+				{
+					"name": "async",
+					"value": "true"
+				},
+				{
+					"name": "endListener",
+					"value": "${evaluateTransferFileCallback}"
+				}
+			],
+			"partnerNode": {
+				"type": "bpmn:ReceiveTask",
+				"description": "",
+				"label": "File lokalisieren",
+				"extensionElements": [
+					{
+						"type": "activiti:executionListener",
+						"defaults": [
+							{
+								"name": "delegateExpression",
+								"value": "${evaluateTransferFileCallback}"
+							},
+							{
+								"name": "event",
+								"value": "end"
+							}
+						]
+					}
+				],
+				"defaults": [
+					{
+						"name": "id",
+						"value": "localize-file"
+					},
+					{
+						"name": "async",
+						"value": "true"
+					}
+				]
+			},
+			"methods": [
+				{
+					"name": "transferFileById",
+					"description": "no description",
+					"params": []
+				}
+			]
+		},
+		{
+			"name": "transcodingDelegate",
+			"label": "Transcoding delegate",
+			"iconClassName": "transcoding",
+			"description": "",
+			"methods": [{}],
+			"defaults": [{}]
 		}
 	]
 }

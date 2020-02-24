@@ -27,7 +27,8 @@ export const ExpressionDialog = element => {
         dialogEl, 
         updateArgMDCs, 
         updateMethodName,
-        updateBeanName
+        updateBeanName,
+        currentBeanName: beanName
     });
 
     const dialog = new MDCDialog(dialogEl);

@@ -7,18 +7,13 @@ import {
   create as svgCreate
 } from 'tiny-svg';
 
-import {
-  getRoundRectPath
-} from 'bpmn-js/lib/draw/BpmnRenderUtil';
+import {getRoundRectPath} from 'bpmn-js/lib/draw/BpmnRenderUtil';
 
-import {
-  is,
-  getBusinessObject
-} from 'bpmn-js/lib/util/ModelUtil';
+import {is, getBusinessObject} from 'bpmn-js/lib/util/ModelUtil';
 
-import { isNil } from 'min-dash';
+import {isNil} from 'min-dash';
 
-const BEAN = 'registerFileDelegate';
+const BEAN = 'asyncFileTransfer';
 const getMethodName = method => method + '(';
 const METHODS = {
   registerSourceFileById: 'registerSourceFileById',
@@ -112,7 +107,7 @@ export default class CustomRenderer extends BaseRenderer {
     //   return COLOR_BLUE;
     // }
 
-    return COLOR_GREEN;
+    return COLOR_PINK;
   }
 }
 
